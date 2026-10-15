@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>测一测：你的内心是哪种生活模式？</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;}
+        body{background-color:#f8f5ee;color:#5a4b3f;min-height:100vh;}
+        .container{max-width:480px;margin:0 auto;padding:20px;aspect-ratio:3/4;}
+        .page{display:none;}
+        .page.active{display:block;}
+
+        /*封面页*/
+        .cover{text-align:center;padding-top:80px;}
+        .cover h1{font-size:28px;margin-bottom:20px;color:#6b5848;line-height:1.4;}
+        .cover p{font-size:16px;margin-bottom:40px;line-height:1.6;}
+        .start-btn{background:#d9c9b8;color:#5a4b3f;border:none;padding:14px 36px;border-radius:99px;font-size:17px;cursor:pointer;}
+
+        /*题目页*/
+        .question{margin:30px 0;}
+        .q-title{font-size:18px;margin-bottom:24px;line-height:1.5;}
+        .option{border:1px solid #e2d8cc;border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;transition:0.2s;}
+        .option:hover{background:#f1e9df;}
+        .option.selected{background:#d9c9b8;border-color:#c2b09c;}
+
+        /*结果页*/
+        .result{text-align:center;padding-top:40px;}
+        .result h2{font-size:26px;margin-bottom:16px;}
+        .result .desc{text-align:left;line-height:1.7;font-size:16px;margin:30px 0;}
+        .tip{margin-top:40px;font-size:15px;color:#806e5e;}
+        .restart{margin-top:24px;background:#d9c9b8;color:#5a4b3f;border:none;padding:12px 30px;border-radius:99px;font-size:16px;cursor:pointer;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--封面页-->
+        <div class="page active" id="page-cover">
+            <div class="cover">
+                <h1>测一测：你的内心是哪种生活模式？</h1>
+                <p>静下心来回答几道小题，看看你隐藏的生活底色✨</p>
+                <button class="start-btn" onclick="goPage('page-q1')">开始测试</button>
+            </div>
+        </div>
+
+        <!--题目1-->
+        <div class="page" id="page-q1">
+            <div class="question">
+                <div class="q-title">题1：忙完一件大事之后，你通常会？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-q2')">A 彻底放空休息一段时间</div>
+                <div class="option" data-val="B" onclick="select(this,'page-q2')">B 立刻规划下一件事</div>
+                <div class="option" data-val="C" onclick="select(this,'page-q2')">C 边休息边琢磨新想法</div>
+            </div>
+        </div>
+        <!--题目2-->
+        <div class="page" id="page-q2">
+            <div class="question">
+                <div class="q-title">题2：遇到计划被打乱时，你会？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-q3')">A 有点烦躁，尽量恢复原有节奏</div>
+                <div class="option" data-val="B" onclick="select(this,'page-q3')">B 灵活调整目标，降低期待</div>
+                <div class="option" data-val="C" onclick="select(this,'page-q3')">C 随机应变，干脆换个方向</div>
+            </div>
+        </div>
+        <!--题目3-->
+        <div class="page" id="page-q3">
+            <div class="question">
+                <div class="q-title">题3：做一件事，你更看重？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-q4')">A 过程里自己是否舒服尽力</div>
+                <div class="option" data-val="B" onclick="select(this,'page-q4')">B 最后拿到的结果好不好</div>
+                <div class="option" data-val="C" onclick="select(this,'page-q4')">C 能不能学到新东西</div>
+            </div>
+        </div>
+        <!--题目4-->
+        <div class="page" id="page-q4">
+            <div class="question">
+                <div class="q-title">题4：别人拜托你帮忙，你一般？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-q5')">A 力所能及就协助对方</div>
+                <div class="option" data-val="B" onclick="select(this,'page-q5')">B 评估成本，合适才出手</div>
+                <div class="option" data-val="C" onclick="select(this,'page-q5')">C 优先顾好自己和家人</div>
+            </div>
+        </div>
+        <!--题目5-->
+        <div class="page" id="page-q5">
+            <div class="question">
+                <div class="q-title">题5：休息的时候，你更喜欢？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-q6')">A 规律作息，吃饭午休简单平淡</div>
+                <div class="option" data-val="B" onclick="select(this,'page-q6')">B 安排丰富活动，出门走走</div>
+                <div class="option" data-val="C" onclick="select(this,'page-q6')">C 安静独处，做点自己爱好</div>
+            </div>
+        </div>
+        <!--题目6-->
+        <div class="page" id="page-q6">
+            <div class="question">
+                <div class="q-title">题6：面对批评的时候，你习惯？</div>
+                <div class="option" data-val="A" onclick="select(this,'page-result')">A 聚焦事情本身，理性复盘</div>
+                <div class="option" data-val="B" onclick="select(this,'page-result')">B 先感受情绪，之后再思考</div>
+                <div class="option" data-val="C" onclick="select(this,'page-result')">C 选择性听取，保留自己想法</div>
+            </div>
+        </div>
+
+        <!--结果页-->
+        <div class="page" id="page-result">
+            <div class="result">
+                <h2 id="result-title"></h2>
+                <div class="desc" id="result-text"></div>
+                <div class="tip">截图保存，发给朋友一起测一测</div>
+                <button class="restart" onclick="restartTest()">重新测试</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let score = {A:0,B:0,C:0};
+    const resultData = {
+        A:{
+            title:"安稳守心型",
+            text:`你偏爱平稳有序的生活，懂得劳逸结合。做事踏实，尽力而为，不盲目追逐。
+<br/><br/>优势：情绪稳定，待人温和，擅长守住生活里的小美好。
+<br/><br/>小提醒：偶尔可以大胆跳出固定节奏，尝试一点新的可能性。`
+        },
+        B:{
+            title:"务实成长型",
+            text:`目标感强，懂得灵活调整预期，不会被挫折困住。看重收获，遇事理性，聚焦事情本身。
+<br/><br/>优势：抗压能力强，遇到问题愿意主动想办法解决。
+<br/><br/>小提醒：不必事事追求结果，允许自己单纯享受过程。`
+        },
+        C:{
+            title:"自由探索型",
+            text:`你的内心不喜欢被束缚，优先守护自己和家人。想法灵活，有自己独立判断，不容易被别人影响。
+<br/><br/>优势：拥有清晰边界感，忠于内心，懂得取舍。
+<br/><br/>小提醒：有时候适当妥协，会减少很多不必要的内耗。`
+        }
+    };
+
+    function select(el, nextPage){
+        const val = el.getAttribute("data-val");
+        score[val]++;
+        //切换页面
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(nextPage).classList.add('active');
+        if(nextPage === "page-result"){
+            showResult();
+        }
+    }
+
+    function showResult(){
+        let maxKey = "A";
+        let maxNum = score.A;
+        if(score.B>maxNum){maxKey="B";maxNum=score.B;}
+        if(score.C>maxNum){maxKey="C";maxNum=score.C;}
+        const res = resultData[maxKey];
+        document.getElementById("result-title").innerText = res.title;
+        document.getElementById("result-text").innerHTML = res.text;
+    }
+
+    function goPage(id){
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function restartTest(){
+        score={A:0,B:0,C:0};
+        goPage("page-cover");
+    }
+</script>
+</body>
+</html>
